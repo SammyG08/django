@@ -1,0 +1,18 @@
+{% extends 'Blog/base.html' %}
+{% block content %}
+
+<div class="form">
+    <div class = "deletion-warning" ><h3 class ="delete"> Are you sure you want to delete {{object.title}} post?<br>It will be removed from your profile.<h3></div>
+    <form method = "POST">
+        {% csrf_token %}
+        <div class="btn">
+            <button class='yes' type="submit">Yes</button>
+            <a class="cancel-del" href="{% url 'post-detail' object.id %}">Cancel</a>
+        </div>    
+    </form>
+   
+</div>
+
+
+
+{% endblock content %}

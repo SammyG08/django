@@ -1,0 +1,45 @@
+{% extends "Blog/base.html" %}
+{% block content %}
+    <h2 class=" posts-heading"> {{view.kwargs.username}}'s Posts <small class = "count">  ({{page_obj.paginator.count}}) </small></h2> 
+    {% for post in posts %}
+    <div class = "posts">
+        <div class="sub-container">
+            <img class='user-profile-pic' src="{{post.author.profile.image.url}}">
+            <span>{{post.author}}</span><small> {{post.date_published}} </small>
+        </div><hr/>
+        <div class="linkncontent">
+            <h2><a class="a-tag" href="{% url "post-detail" post.id %}">{{post.title}}</a></h2>
+            <p id = "post-content"> {{post.content}} </p>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% if is_paginated%}
+        <div class="pagination">
+            {%if page_obj.has_previous %}
+            <strong class="back">
+                <a class="pages" href="?page = 1">First</a>
+                <a class="pages" href="?page= {{ page_obj.previous_page_number }}">Back</a>
+            </strong>
+            {% endif%}
+
+            {% for page in page_obj.paginator.page_range%}
+                {% if page_obj.number == page %}
+                    <strong class="back"><a class="current-page" href="?page={{ page }}">{{ page }}</a></strong>
+                
+                {% elif page > page_obj.number|add:'-3'  and  page < page_obj.number|add:'3'%}
+                    <strong class="back"><a class="next-pages" href="?page={{ page }}">{{ page }}</a></strong>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <strong class="back">
+                    <a class="pages" href="?page={{ page_obj.next_page_number }} ">Next</a>
+                    <a class="pages" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+                </strong>
+            {% endif %}
+        </div>
+    {% endif %}
+
+
+{% endblock content %}

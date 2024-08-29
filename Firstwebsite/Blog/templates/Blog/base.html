@@ -1,0 +1,68 @@
+{% load static %}
+
+<!doctype html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='viewport' content='width= device-width, initial-scale= 1'>
+<link rel='stylesheet' type="text/css" href="{% static 'Blog/styling.css' %}">
+
+{% if title %}
+    <title> {{title}} </title>
+{% else %}
+    <title> Business Life </title>
+{% endif %}
+</head>
+<body>
+    <header>
+        <div class="webmap">
+            <h3 class='Business-World'><a href=' {% url "blog-home" %}'>Business World </a></h3>
+            <h3 class='homepage'><a href=' {% url "blog-home" %}'>Homepage</a></h3>
+            <h3 class='about-about'><a href=' {% url "blog-about" %}'>About</a></h3>
+        </div>
+        <div class="lognreg">
+            {% if user.is_authenticated %}
+                <h3 class="profile"> <a href=' {% url "create-post" %}'>Add Post</a></h3>
+                <h3 class="profile"> <a href=' {% url "profile" %}'>Profile</a></h3>
+                <h3 class="logout"> <a href=' {% url "logout" %}'>Logout</a></h3> 
+            {% else %}
+                <h3 class="login"> <a href=' {% url "login" %}'>Login</a></h3>
+                <h3 class="register"> <a href=' {% url "register" %}'>Register</a></h3>
+            {% endif %}
+        </div>
+    </header>
+    <main>
+        <div class='full-container'>
+            <div class='user'>
+                <div class='message'>
+                    {% if messages %}
+                        {%for message in messages%}
+                        <div class="messages"> {{message}} </div>
+                        {%endfor%}
+                    {% endif %}
+                </div>
+                {% block content %}{% endblock content %}
+            </div>
+            <div class="sidebar">
+                <h2> Our Sidebar </h2>
+                <p> You can put any information you'd like here </p>
+                <table class="info">
+                    <tr>
+                        <td> Lastest Posts </td>
+                    </tr>
+                    <tr>
+                        <td> Anouncements </td>
+                    </tr>
+                    <tr>
+                        <td> Calendars </td>
+                    </tr>
+                    <tr>
+                        <td> Reminders </td>
+                    </tr>
+
+                </table>
+            </div> 
+        </div>
+    </main>
+</body>
+</html>

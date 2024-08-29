@@ -1,0 +1,9 @@
+{% extends 'Blog/base.html' %}
+{% block content %}
+
+    <div class = "loggedout"><h2 class='logoutmsg'> We hate to see you leave.</h2></div>
+    <div class = "login-question"> <h4 class='login-direction'>
+        You can log in again here 
+        <a class="login-again" href="{% url 'login' %}"> Login</a></h2>       
+    </div>
+{% endblock content%}
